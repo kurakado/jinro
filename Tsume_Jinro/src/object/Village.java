@@ -1,10 +1,13 @@
 package object;
 
+import java.util.ArrayList;
+
 import system.Server;
 
 
 
 public class Village {
+	public ArrayList<Sankasha> sankasha=new ArrayList<Sankasha>(1);
 	public int number=0;
 	public String name="";
 	private int max_sankasha=0;
@@ -44,6 +47,8 @@ public class Village {
 	public boolean sanka(Sankasha person){
 		if (max_sankasha>fig_sankasha){
 			fig_sankasha++;
+			System.out.println("dbg:"+person.name);
+			sankasha.add(person);
 		}else{
 			return false;
 		}
@@ -56,8 +61,13 @@ public class Village {
 				|| (person.kibo_yaku=="妖狐" && max_youko==fig_youko)
 				|| (person.kibo_yaku=="狩人" && max_karyudo==fig_karyudo)
 				|| (person.kibo_yaku=="狂人" && max_kyojin==fig_kyojin)
+				|| (person.kibo_yaku=="無し")
 				){
 			person.yaku="無職";
+			System.out.println("dbg:mushoku");
+		} else {
+			person.yaku=person.kibo_yaku;
+			System.out.println("dbg:"+person.yaku);
 		}
 		
 		return true;

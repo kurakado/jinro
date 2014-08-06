@@ -39,7 +39,13 @@ if (key_list.length==0){
 	<input type="radio" name="kibo" value="占い師" >占い師<br>
 	<input type="radio" name="kibo" value="霊能者" >霊能者<br>
 	<input type="radio" name="kibo" value="人狼" >人狼<br>
-	<input type="submit" value="決定">
+<%
+if (key_list.length==0){
+	out.println("村がありません。<br><br>");
+}else{	
+	out.println("<input type=\"submit\" value=\"決定\">");
+}
+%>
 	
 </form>
 <br>

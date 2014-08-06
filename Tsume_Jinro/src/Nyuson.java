@@ -56,11 +56,21 @@ public class Nyuson extends HttpServlet {
 		HashMap<Integer, Village> village_list=Server.get_village_list();
 		Village vill=village_list.get(Integer.parseInt(req.getParameter("Village_number")));
 		Sankasha person=new Sankasha(req.getParameter("name"),req.getParameter("kibo"));
-		vill.sanka(person);
-		out.println("村番号："+vill.number);
-		out.println("村名前："+vill.name);
-		out.println("名前："+req.getParameter("name") + "<br>");
-		out.println("希望役職："+req.getParameter("kibo") + "<br>");
+		boolean result = vill.sanka(person);
+		if (result==true){
+			out.println("村番号："+vill.number);
+			out.println("村名前："+vill.name);
+			out.println("名前："+req.getParameter("name") + "<br>");
+			out.println("名前："+person.name + "<br>");
+			out.println("希望役職："+req.getParameter("kibo") + "<br>");
+			out.println("役職："+person.yaku + "<br>");		
+			out.println("<form method=\"post\" action=\"gameScreen.jsp\">");
+			out.println("<input type=\"hidden\" name=\"village_number\" value="+vill.number+">");
+			out.println("<input type=\"submit\" value=\"進む\">");
+		} else{
+			out.println("定員オーバー");
+		}
+		out.println("</form>");
 		out.println("</BODY>");
 		out.println("</HTML>");
 
