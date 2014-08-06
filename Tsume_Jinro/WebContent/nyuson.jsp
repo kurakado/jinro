@@ -1,6 +1,6 @@
 <%@page import="system.Server"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"  import="object.*,java.util.ArrayList"
+    pageEncoding="UTF-8"  import="object.*,java.util.HashMap,java.util.Set"
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,16 +16,23 @@
 
 <form method="post" action="Nyuson">
 
-<select name=Village_number>
+
 <%
-out.println(new java.util.Date());
-ArrayList<Village> village_list=Server.get_village_list();
-out.println(village_list.size());
-for (int i=0;i<village_list.size();i++){
-	out.println("<option value="+village_list.get(i).number+">"+village_list.get(i).number+"</option>");
+out.println(new java.util.Date()+"<br>");
+HashMap<Integer,Village> village_list=Server.get_village_list();
+out.println("村数："+village_list.size()+"<br>");
+Integer[] key_list=village_list.keySet().toArray(new Integer[0]); 
+if (key_list.length==0){
+	out.println("村がありません。<br><br>");
+} else {
+	out.println("<select name=Village_number>");
+	for (int i=0;i<key_list.length;i++){
+		out.println("<option value="+village_list.get(key_list[i]).number+">"+village_list.get(key_list[i]).number+"</option>");
+	}
+	out.println("</select><br>");
 }
+
 %>
-</select><br>
 	名前：
 	<input type="text" name="name"><br><br>
 	<input type="radio" name="kibo" value="無し" checked>無し<br>

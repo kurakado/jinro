@@ -6,6 +6,7 @@ import system.Server;
 
 public class Village {
 	public int number=0;
+	public String name="";
 	private int max_sankasha=0;
 	private int max_uranaishi=0;
 	private int max_reinousha=0;
@@ -25,7 +26,8 @@ public class Village {
 	private int fig_jinro=0;
 	private int fig_youko=0;
 	
-	public Village(int[] _max){
+	public Village(String _name,int[] _max){
+		name=_name;
 		number=Server.add_village(this);
 		max_sankasha=_max[0];
 		max_uranaishi=_max[1];

@@ -4,10 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>村作成画面</title>
 </head>
 <body>
 <form method="post" action="MakeVillage">
+村名：
+	<input type="text" name="name"><br><br>
 	占い師：
 <select name=ninzuu_uranaishi>
 <% 
