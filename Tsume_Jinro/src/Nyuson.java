@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,8 +53,10 @@ public class Nyuson extends HttpServlet {
 		out.println("<title>Test page</title>");
 		out.println("</head>");
 		out.println("<BODY>");
-		Village[] village_list=Server.get_village_list();
+		ArrayList<Village> village_list=Server.get_village_list();
+		Village vill=village_list.get(Integer.parseInt(req.getParameter("village_number")));
 		Sankasha person=new Sankasha(req.getParameter("name"),req.getParameter("kibo"));
+		vill.sanka(person);
 		out.println("村番号：");
 		out.println("名前："+req.getParameter("name") + "<br>");
 		out.println("希望役職："+req.getParameter("kibo") + "<br>");

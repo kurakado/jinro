@@ -44,8 +44,29 @@ public class MakeVillage extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		PrintWriter out = res.getWriter();
 		
-		Village vill= new Village();
+		//各人数集計
+		int uranaishi=Integer.parseInt(req.getParameter("ninzuu_uranaishi"));
+		int reinousha=Integer.parseInt(req.getParameter("ninzuu_reinousha"));
+		int kyoyusha=Integer.parseInt(req.getParameter("ninzuu_kyoyusha"));
+		int karyudo=Integer.parseInt(req.getParameter("ninzuu_karyudo"));
+		int murabito=Integer.parseInt(req.getParameter("ninzuu_murabito"));
+		int kyojin=Integer.parseInt(req.getParameter("ninzuu_kyojin"));
+		int jinro=Integer.parseInt(req.getParameter("ninzuu_jinro"));
+		int youko=Integer.parseInt(req.getParameter("ninzuu_youko"));
+		int sankasha=uranaishi + reinousha + kyoyusha + karyudo + murabito + kyojin + jinro + youko;
+		int[] ninzu={sankasha,uranaishi,reinousha,kyoyusha,karyudo,murabito,kyojin,jinro,youko};
+
+		//Village オブジェクト作成
+		Village vill= new Village(ninzu);
 		
+		out.println("<HTML>");
+		out.println("<head>");
+		out.println("<title>Test page</title>");
+		out.println("</head>");
+		out.println("<BODY>");
+		out.println("村番号："+vill.number);
+		out.println("</BODY>");
+		out.println("</HTML>");
 	}
 
 }
