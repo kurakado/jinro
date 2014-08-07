@@ -21,17 +21,15 @@
 out.println(new java.util.Date()+"<br>");
 HashMap<Integer,Village> village_list=Server.get_village_list();
 out.println("村数："+village_list.size()+"<br>");
-Integer[] key_list=village_list.keySet().toArray(new Integer[0]); 
-if (key_list.length==0){
+if (village_list.size()==0){
 	out.println("村がありません。<br><br>");
 } else {
 	out.println("<select name=Village_number>");
-	for (int i=0;i<key_list.length;i++){
-		out.println("<option value="+village_list.get(key_list[i]).number+">"+village_list.get(key_list[i]).number+"</option>");
+	for ( int i :village_list.keySet()){
+		out.println("<option value="+village_list.get(i).number+">"+village_list.get(i).number+"</option>");
 	}
 	out.println("</select><br>");
 }
-
 %>
 	名前：
 	<input type="text" name="name"><br><br>
@@ -40,7 +38,7 @@ if (key_list.length==0){
 	<input type="radio" name="kibo" value="霊能者" >霊能者<br>
 	<input type="radio" name="kibo" value="人狼" >人狼<br>
 <%
-if (key_list.length==0){
+if (village_list.size()==0){
 	out.println("村がありません。<br><br>");
 }else{	
 	out.println("<input type=\"submit\" value=\"決定\">");

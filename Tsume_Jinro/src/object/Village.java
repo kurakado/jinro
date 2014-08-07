@@ -7,7 +7,8 @@ import system.Server;
 
 
 public class Village {
-	public ArrayList<Sankasha> sankasha=new ArrayList<Sankasha>(1);
+	public ArrayList<Sankasha> sankasha=new ArrayList<Sankasha>();
+	public ArrayList<String> chat=new ArrayList<String>();
 	public int number=0;
 	public String name="";
 	private int max_sankasha=0;
@@ -53,6 +54,7 @@ public class Village {
 			return false;
 		}
 		
+		
 		if((person.kibo_yaku=="村人" && max_murabito==fig_murabito)
 				|| (person.kibo_yaku=="占い師" && max_uranaishi==fig_uranaishi)
 				|| (person.kibo_yaku=="霊能者" && max_reinousha==fig_reinousha)
@@ -67,9 +69,40 @@ public class Village {
 			System.out.println("dbg:mushoku");
 		} else {
 			person.yaku=person.kibo_yaku;
+				if(person.kibo_yaku=="村人"){
+					fig_murabito++;
+				}else if (person.kibo_yaku=="占い師"){
+					fig_uranaishi++;
+				}else if (person.kibo_yaku=="霊能者"){
+					fig_reinousha++;
+				}else if (person.kibo_yaku=="人狼"){
+					fig_jinro++;
+				}else if (person.kibo_yaku=="共有者"){
+					fig_kyoyusha++;
+				}else if (person.kibo_yaku=="妖狐"){
+					fig_youko++;
+				}else if (person.kibo_yaku=="狩人"){
+					fig_karyudo++;
+				}else if (person.kibo_yaku=="狂人"){
+					fig_kyojin++;
+				}
 			System.out.println("dbg:"+person.yaku);
 		}
 		
 		return true;
 	}
+	
+	public boolean dattai(Sankasha person){
+		boolean result = sankasha.contains(person);
+		if (result==false){
+			System.out.println("存在しない参加者です。");
+			return false;
+		}
+		result = sankasha.remove(person);
+		if (result==false){
+			return false;
+		}
+		return true;
+	}
+	
 }
