@@ -8,8 +8,13 @@
 </head>
 <body>
 <form method="post" action="MakeVillage">
+GMの名前：
+	<input type="text" name="name"><br>
+パスワード：
+	<input type="password" name="pass"><br><br>
+
 村名：
-	<input type="text" name="name"><br><br>
+	<input type="text" name="village_name"><br><br>
 	占い師：
 <select name=ninzuu_uranaishi>
 <% 

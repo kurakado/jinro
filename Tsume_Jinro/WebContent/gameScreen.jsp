@@ -8,17 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <%
-	int village_number=Integer.parseInt(request.getParameter("village_number"));
+	int village_number=(Integer)request.getAttribute("village_number");
 	HashMap<Integer, Village> village_list=Server.get_village_list();
 	Village vill=village_list.get(village_number);
+	//参加者リストの表示
 	out.println("参加者：<br>");
-	for(Sankasha person:vill.sankasha){
-		out.println("  "+person.name+"<br>");
+	for(int i: vill.sankasha.keySet()){
+		out.println("  "+ vill.sankasha.get(i).getName()+"<br>");
 	}
-
 %>
-<form method="post" action="gameScreen.jsp">
+<form method="post" action="GameScreen">
 <input type=text name=chat>
 <% 
 out.println("<input type=\"hidden\" name=\"village_number\" value=" + village_number + ">");
@@ -26,17 +27,13 @@ out.println("<input type=\"hidden\" name=\"village_number\" value=" + village_nu
 <input type="submit" value="更新">
 <br>
 <%
-if (request.getParameter("chat")!=null){
-	if(! (request.getParameter("chat").equals(""))){
-		//発言の新しい物ほど上にくるように要素0に挿入。
-		//逆順で表示したいなら位置指定を消す。(最後の要素に追加)
-		vill.chat.add(0,"｢"+request.getParameter("chat")+"｣");
-	}
-}
+//チャットログの表示
 for(String chat:vill.chat){
 	out.println(chat+"<br>");
 }
 %>
+<input type="button" value="トップページへ" onClick="location.href='index.html'">
+
 </form>
 </body>
 </html>

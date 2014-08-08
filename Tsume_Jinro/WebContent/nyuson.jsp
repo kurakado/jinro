@@ -33,6 +33,8 @@ if (village_list.size()==0){
 %>
 	名前：
 	<input type="text" name="name"><br><br>
+	パスワード：
+	<input type="password" name="pass"><br><br>
 	<input type="radio" name="kibo" value="無し" checked>無し<br>
 	<input type="radio" name="kibo" value="占い師" >占い師<br>
 	<input type="radio" name="kibo" value="霊能者" >霊能者<br>
