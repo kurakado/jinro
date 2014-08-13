@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>game 画面</title>
 </head>
 <body>
 
@@ -32,7 +32,7 @@ for(String chat:vill.chat){
 	out.println(chat+"<br>");
 }
 %>
-<input type="button" value="トップページへ" onClick="location.href='index.html'">
+<input type="button" value="トップページへ" onClick="location.href='index.jsp'">
 
 </form>
 </body>

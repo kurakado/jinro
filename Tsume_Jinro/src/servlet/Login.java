@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import object.Village;
 import system.Server;
@@ -40,12 +41,23 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("dbg:start post");
+//		System.out.println("dbg:start post");
 		// TODO Auto-generated method stub
 		//エンコード方式の指定
 		response.setContentType("text/html; charset=UTF-8");
 		//パラメータのエンコード方式の指定
 		request.setCharacterEncoding("UTF-8");
+		
+		HttpSession session=request.getSession(true);
+		
+		//既に入村中ならば、その村に入る
+		if(!(session.getAttribute("vill")==null)){
+			Village vill=(Village)session.getAttribute("vill");
+			request.setAttribute("village_number", vill.number);
+			String url="/gameScreen.jsp";
+			forward(url,request,response);
+			return;
+		}
 		
 		HashMap<Integer, Village> village_list=Server.get_village_list();
 		request.setAttribute("village_list", village_list);
@@ -53,15 +65,16 @@ public class Login extends HttpServlet {
 			int vill_number = Integer.parseInt(request.getParameter("vill_number"));
 			Village vill=Server.get_village_list().get(vill_number);
 			request.setAttribute("vill", vill);
-		
-		
-		
+					
 			if((!(request.getParameter("pass")==null))&&(!(request.getParameter("id")==null))){
 				int id=Integer.parseInt(request.getParameter("id"));
 				if(vill.sankasha.get(id).getPassword().equals(request.getParameter("pass"))){
 					request.setAttribute("village_number", vill.number);
+					session.setAttribute("vill", vill);
+					session.setAttribute("sankasha", vill.sankasha.get(id));
 					String url="/gameScreen.jsp";
 					forward(url,request,response);
+					return;
 				}
 			}
 		}

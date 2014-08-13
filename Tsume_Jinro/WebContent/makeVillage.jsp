@@ -7,6 +7,23 @@
 <title>村作成画面</title>
 </head>
 <body>
+	<table align="center" bgcolor="#faebd7" width="100%" style="margin-top: 60px">
+		<tr style="height:30px">
+			<td align="center"style="font-weight: bold; font-size: 16pt; color: maroon;">
+			村作成
+			</td>
+		</tr>
+	</table>
+	<table align="center" bgcolor="#faebd7" width="100%">
+			<tr style="margin-bottom: 10px">
+				<td align="center">
+				<div style="color:red">
+				${error}
+				</div>
+				</td>
+			</tr>
+	</table>
+
 <form method="post" action="MakeVillage">
 GMの名前：
 	<input type="text" name="name"><br>

@@ -9,9 +9,24 @@
 <title>入村画面</title>
 </head>
 <body>
-<%
 
-%>
+	<table align="center" bgcolor="#faebd7" width="100%" style="margin-top: 60px">
+		<tr style="height:30px">
+			<td align="center"style="font-weight: bold; font-size: 16pt; color: maroon;">
+			入村
+			</td>
+		</tr>
+	</table>
+	<table align="center" bgcolor="#faebd7" width="100%">
+			<tr style="margin-bottom: 10px">
+				<td align="center">
+				<div style="color:red">
+				${error}
+				</div>
+				</td>
+			</tr>
+	</table>
+
 
 
 <form method="post" action="Nyuson">
@@ -26,7 +41,7 @@ if (village_list.size()==0){
 } else {
 	out.println("<select name=Village_number>");
 	for ( int i :village_list.keySet()){
-		out.println("<option value="+village_list.get(i).number+">"+village_list.get(i).number+"</option>");
+		out.println("<option value="+village_list.get(i).number+">"+village_list.get(i).name+"</option>");
 	}
 	out.println("</select><br>");
 }

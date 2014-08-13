@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -12,21 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import object.Sankasha;
-import object.Village;
-import system.Server;
+import system.MessageString;
 
 /**
- * Servlet implementation class GameScreen
+ * Servlet implementation class AccountLogin
  */
-@WebServlet("/GameScreen")
-public class GameScreen extends HttpServlet {
+@WebServlet("/AccountLogin")
+public class AccountLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GameScreen() {
+    public AccountLogin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,6 +33,10 @@ public class GameScreen extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		// URL設定
+		String url = "/accountLogin.jsp";
+		// フォワード
+		forward(url, request, response);
 	}
 
 	/**
@@ -43,27 +44,35 @@ public class GameScreen extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int village_number=Integer.parseInt(request.getParameter("village_number"));
-		HashMap<Integer, Village> village_list=Server.get_village_list();
-		Village vill=village_list.get(village_number);
-		request.setAttribute("village_number", village_number);
-		HttpSession session=request.getSession();
-		//chatがnullでも空文字でもない時
-		if ((request.getParameter("chat")!=null) && (! (request.getParameter("chat").equals("")))){
-			String name;
-			if(session.getAttribute("sankasha")==null){
-				name="観戦者";
-			}else{
-				Sankasha sankasha=(Sankasha) session.getAttribute("sankasha");
-				name=sankasha.name;
-			}
-			//発言の新しい物ほど上にくるように要素0に挿入。
-			//逆順で表示したいなら位置指定を消す。(最後の要素に追加)
-			vill.chat.add(0,name+"｢"+request.getParameter("chat")+"｣");
-				
+		// エラーメッセージ
+		StringBuilder errorMessage = new StringBuilder(0);
+
+		// パラメータ受け取り
+		request.setCharacterEncoding("UTF-8");
+		String id = request.getParameter("ID");
+		String password = request.getParameter("pass");
+		
+		// IDの必須チェック
+		if (id == null || id.equals("")) {
+			errorMessage.append(String.format(MessageString.M01W, "ID")
+					+ "<br>");
 		}
-		String url="/gameScreen.jsp";
-		forward(url,request,response);
+		// パスワードの必須チェック
+		if (password == null || password.equals("")) {
+			errorMessage.append(String.format(MessageString.M01W, "パスワード")
+					+ "<br>");
+		}
+		
+		// 入力チェックまででエラーがあったら、ログイン画面に戻る
+		if (errorMessage.length() != 0) {
+			// リクエストにエラー情報設定
+			request.setAttribute("error", errorMessage.toString());
+			// URL設定
+			String url = "/accountLogin.jsp";
+			// フォワード
+			forward(url, request, response);
+			return;
+		}
 	}
 	private void forward(String url, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

@@ -10,9 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import object.Sankasha;
 import object.Village;
+import system.MessageString;
 
 /**
  * Servlet implementation class MakeVillage
@@ -34,6 +36,25 @@ public class MakeVillage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		StringBuilder errorMessage = new StringBuilder(0);
+		HttpSession session=request.getSession(true);
+		
+		//アカウントログインしていない場合にはエラー
+		if(session.getAttribute("account")==null){
+			errorMessage.append(MessageString.M01S);
+		}
+		
+		//エラーを情報にセット
+		if (errorMessage.length() != 0) {
+			// リクエストにエラー情報設定
+			request.setAttribute("error", errorMessage.toString());
+		}
+		
+		// URL設定
+		String url = "/makeVillage.jsp";
+		// フォワード
+		forward(url, request, response);
+		return;
 	}
 
 	/**
@@ -45,6 +66,9 @@ public class MakeVillage extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		//パラメータのエンコード方式の指定
 		request.setCharacterEncoding("UTF-8");
+		
+		StringBuilder errorMessage = new StringBuilder(0);
+		HttpSession session=request.getSession(true);
 		
 		//GM名
 		String name=request.getParameter("name");
@@ -64,10 +88,29 @@ public class MakeVillage extends HttpServlet {
 		int sankasha=uranaishi + reinousha + kyoyusha + karyudo + murabito + kyojin + jinro + youko;
 		int[] ninzu={sankasha,uranaishi,reinousha,kyoyusha,karyudo,murabito,kyojin,jinro,youko};
 
+		//アカウントログインしていない場合にはエラー
+		if(session.getAttribute("account")==null){
+			errorMessage.append(MessageString.M01S);
+		}
+		
+		//エラーがある場合には追い返す
+		if (errorMessage.length() != 0) {
+			// リクエストにエラー情報設定
+			request.setAttribute("error", errorMessage.toString());
+			// URL設定
+			String url = "/makeVillage.jsp";
+			// フォワード
+			forward(url, request, response);
+			return;
+		}
+		
 		//Village オブジェクト作成
 		Village vill= new Village(village_name,ninzu);
 		Sankasha GM = new Sankasha(name,pass,"GM");
 		vill.setGM(GM);
+		
+		//セッションに情報設定
+		session.setAttribute("vill", vill);
 		request.setAttribute("vill", vill);
 		request.setAttribute("GM", GM);
 		String url="/makeVillageResult.jsp";

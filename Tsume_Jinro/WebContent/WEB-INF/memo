@@ -1,0 +1,6 @@
+session　Attributeリスト
+
+account：ログインしているaccountインスタンス
+vill:入村中の村インスタンス
+sankasha:villが存在する場合に、その村で使用しているSankashaインスタンス
+error:エラーメッセージ

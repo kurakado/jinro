@@ -14,7 +14,7 @@
 %>
 村番号：${vill.number}<br>
 GM:${GM.name}<br>
-<input type="button" value="トップページへ" onClick="location.href='index.html'">
+<input type="button" value="トップページへ" onClick="location.href='index.jsp'">
 
 </body>
 </html>

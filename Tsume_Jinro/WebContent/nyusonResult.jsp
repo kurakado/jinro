@@ -15,18 +15,18 @@
 //boolean result = vill.sanka(person);
 
 boolean result=(Boolean) request.getAttribute("result");
-Sankasha person=(Sankasha) request.getAttribute("person");
+Sankasha sankasha=(Sankasha) request.getAttribute("sankasha");
 Village vill=(Village) request.getAttribute("vill");
 if (result==true){
-	out.println(person.yaku);
+	out.println(sankasha.yaku);
 	pageContext.setAttribute("vill",vill);
-	pageContext.setAttribute("person",person);
+	pageContext.setAttribute("sankasha",sankasha);
 %>
 	村番号：${vill.number}<br>
 	村名前：${vill.name}<br>
-	名前：${person.name}<br>
-	希望役職：${person.kibo_yaku}<br>
-	役職:${person.yaku}<br>
+	名前：${sankasha.name}<br>
+	希望役職：${sankasha.kibo_yaku}<br>
+	役職:${sankasha.yaku}<br>
 
 	<form method="post" action="GameScreen">
 	<input type="hidden" name="village_number" value="${vill.number}">

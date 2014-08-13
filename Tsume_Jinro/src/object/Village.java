@@ -255,35 +255,43 @@ public class Village implements Serializable {
 		}
 		
 		
-		if((person.kibo_yaku=="村人" && max_murabito==fig_murabito)
-				|| (person.kibo_yaku=="占い師" && max_uranaishi==fig_uranaishi)
-				|| (person.kibo_yaku=="霊能者" && max_reinousha==fig_reinousha)
-				|| (person.kibo_yaku=="人狼" && max_jinro==fig_jinro)
-				|| (person.kibo_yaku=="共有者" && max_kyoyusha==fig_kyoyusha)
-				|| (person.kibo_yaku=="妖狐" && max_youko==fig_youko)
-				|| (person.kibo_yaku=="狩人" && max_karyudo==fig_karyudo)
-				|| (person.kibo_yaku=="狂人" && max_kyojin==fig_kyojin)
-				|| (person.kibo_yaku=="無し")
+		if((person.kibo_yaku.equals("村人") &&  max_murabito<=fig_murabito)
+				|| (person.kibo_yaku.equals("占い師") && max_uranaishi<=fig_uranaishi)
+				|| (person.kibo_yaku.equals("霊能者") && max_reinousha<=fig_reinousha)
+				|| (person.kibo_yaku.equals("人狼") && max_jinro<=fig_jinro)
+				|| (person.kibo_yaku.equals("共有者") && max_kyoyusha<=fig_kyoyusha)
+				|| (person.kibo_yaku.equals("妖狐") && max_youko<=fig_youko)
+				|| (person.kibo_yaku.equals("狩人") && max_karyudo<=fig_karyudo)
+				|| (person.kibo_yaku.equals("狂人") && max_kyojin<=fig_kyojin)
+				|| (person.kibo_yaku.equals("無し"))
 				){
 			person.yaku="無職";
 			System.out.println("dbg:mushoku");
 		} else {
 			person.yaku=person.kibo_yaku;
 				if(person.kibo_yaku=="村人"){
+					System.out.println("dbg:村人");
 					fig_murabito++;
-				}else if (person.kibo_yaku=="占い師"){
+				}else if (person.kibo_yaku.equals("占い師")){
+					System.out.println("dbg:占い師");
 					fig_uranaishi++;
-				}else if (person.kibo_yaku=="霊能者"){
+				}else if (person.kibo_yaku.equals("霊能者")){
+					System.out.println("dbg:霊能者");
 					fig_reinousha++;
-				}else if (person.kibo_yaku=="人狼"){
+				}else if (person.kibo_yaku.equals("人狼")){
+					System.out.println("dbg:人狼");
 					fig_jinro++;
-				}else if (person.kibo_yaku=="共有者"){
+				}else if (person.kibo_yaku.equals("共有者")){
+					System.out.println("dbg:共有者");
 					fig_kyoyusha++;
-				}else if (person.kibo_yaku=="妖狐"){
+				}else if (person.kibo_yaku.equals("妖狐")){
+					System.out.println("dbg:妖狐");
 					fig_youko++;
-				}else if (person.kibo_yaku=="狩人"){
+				}else if (person.kibo_yaku.equals("狩人")){
+					System.out.println("dbg:狩人");
 					fig_karyudo++;
-				}else if (person.kibo_yaku=="狂人"){
+				}else if (person.kibo_yaku.equals("狂人")){
+					System.out.println("dbg:狂人");
 					fig_kyojin++;
 				}
 			System.out.println("dbg:"+person.yaku);

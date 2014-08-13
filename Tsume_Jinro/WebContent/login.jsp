@@ -22,25 +22,30 @@ for (Village vill:village_list.values()){
 }
 %>
 </select><br>
-参加者名
-<select name="id">
+
 <%
 if (! (request.getAttribute("vill")==null)){
-	Village vill =(Village)request.getAttribute("vill");
-	for (int i: vill.sankasha.keySet()){
-		pageContext.setAttribute("i",i);
-		Sankasha person=vill.sankasha.get(i);
-		pageContext.setAttribute("person",person);
-%>
-		<option value="${i}">${person.name}
-<%
-	}
+	%>
+	参加者名
+	<select name="id">
+	<%
+		Village vill =(Village)request.getAttribute("vill");
+		for (int i: vill.sankasha.keySet()){
+			pageContext.setAttribute("i",i);
+			Sankasha person=vill.sankasha.get(i);
+			pageContext.setAttribute("person",person);
+	%>
+			<option value="${i}">${person.name}
+	<%
+		}
+	%>
+	</select><br>
+	パスワード：<input type="password" name="pass"><br>
+	<%
 }
 %>
-</select><br>
-<input type="password" name="pass">
-<input type="submit" value="決定">
+<input type="submit" value="決定"><br>
 </form>
-<input type="button" value="トップページへ" onClick="location.href='index.html'">
+<input type="button" value="トップページへ" onClick="location.href='index.jsp'">
 </body>
 </html>
