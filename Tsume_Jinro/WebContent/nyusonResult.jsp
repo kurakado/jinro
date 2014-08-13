@@ -14,30 +14,24 @@
 //Sankasha person=new Sankasha(request.getParameter("name"),request.getParameter("kibo"));
 //boolean result = vill.sanka(person);
 
-boolean result=(Boolean) request.getAttribute("result");
-Sankasha sankasha=(Sankasha) request.getAttribute("sankasha");
-Village vill=(Village) request.getAttribute("vill");
-if (result==true){
-	out.println(sankasha.yaku);
-	pageContext.setAttribute("vill",vill);
-	pageContext.setAttribute("sankasha",sankasha);
-%>
-	村番号：${vill.number}<br>
-	村名前：${vill.name}<br>
-	名前：${sankasha.name}<br>
-	希望役職：${sankasha.kibo_yaku}<br>
-	役職:${sankasha.yaku}<br>
+Sankasha sankasha=(Sankasha) session.getAttribute("sankasha");
+Village vill=(Village) session.getAttribute("vill");
 
-	<form method="post" action="GameScreen">
-	<input type="hidden" name="village_number" value="${vill.number}">
-	<input type="submit" value="進む">
-<%
-}else{
-%>	
-	定員オーバー
-<%
-}
+out.println(sankasha.yaku);
+pageContext.setAttribute("vill",vill);
+pageContext.setAttribute("sankasha",sankasha);
 %>
+村番号：${vill.number}<br>
+村名前：${vill.name}<br>
+名前：${sankasha.name}<br>
+希望役職：${sankasha.kibo_yaku}<br>
+役職:${sankasha.yaku}<br>
+
+<form method="post" action="GameScreen">
+<input type="hidden" name="village_number" value="${vill.number}">
+<input type="submit" value="進む">
+
+
 </form>
 </body>
 </html>

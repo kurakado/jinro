@@ -9,7 +9,7 @@
 <title>入村画面</title>
 </head>
 <body>
-
+<input type="button" value="トップページへ" onClick="location.href='Index'">
 	<table align="center" bgcolor="#faebd7" width="100%" style="margin-top: 60px">
 		<tr style="height:30px">
 			<td align="center"style="font-weight: bold; font-size: 16pt; color: maroon;">
@@ -48,8 +48,6 @@ if (village_list.size()==0){
 %>
 	名前：
 	<input type="text" name="name"><br><br>
-	パスワード：
-	<input type="password" name="pass"><br><br>
 	<input type="radio" name="kibo" value="無し" checked>無し<br>
 	<input type="radio" name="kibo" value="占い師" >占い師<br>
 	<input type="radio" name="kibo" value="霊能者" >霊能者<br>

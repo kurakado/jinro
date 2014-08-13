@@ -25,10 +25,6 @@
 	</table>
 
 <form method="post" action="MakeVillage">
-GMの名前：
-	<input type="text" name="name"><br>
-パスワード：
-	<input type="password" name="pass"><br><br>
 
 村名：
 	<input type="text" name="village_name"><br><br>
@@ -98,6 +94,7 @@ for (int i=0;i<100;i++){
 </select><br>
   <input type="submit" value="決定">
 </form>
-
+<br>
+<input type="button" value="トップページへ" onClick="location.href='Index'">
 </body>
 </html>

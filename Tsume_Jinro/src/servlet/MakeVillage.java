@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import object.Account;
 import object.Sankasha;
 import object.Village;
 import system.MessageString;
@@ -70,10 +71,6 @@ public class MakeVillage extends HttpServlet {
 		StringBuilder errorMessage = new StringBuilder(0);
 		HttpSession session=request.getSession(true);
 		
-		//GM名
-		String name=request.getParameter("name");
-		//GMパスワード
-		String pass=request.getParameter("pass");
 		//村名取得
 		String village_name=request.getParameter("village_name");
 		//各人数集計
@@ -89,7 +86,8 @@ public class MakeVillage extends HttpServlet {
 		int[] ninzu={sankasha,uranaishi,reinousha,kyoyusha,karyudo,murabito,kyojin,jinro,youko};
 
 		//アカウントログインしていない場合にはエラー
-		if(session.getAttribute("account")==null){
+		Account account=(Account)session.getAttribute("account");
+		if(account==null){
 			errorMessage.append(MessageString.M01S);
 		}
 		
@@ -106,11 +104,12 @@ public class MakeVillage extends HttpServlet {
 		
 		//Village オブジェクト作成
 		Village vill= new Village(village_name,ninzu);
-		Sankasha GM = new Sankasha(name,pass,"GM");
+		Sankasha GM = new Sankasha("◆GM",(Account)session.getAttribute("account"));
 		vill.setGM(GM);
 		
 		//セッションに情報設定
 		session.setAttribute("vill", vill);
+		session.setAttribute("sankasha", GM);
 		request.setAttribute("vill", vill);
 		request.setAttribute("GM", GM);
 		String url="/makeVillageResult.jsp";

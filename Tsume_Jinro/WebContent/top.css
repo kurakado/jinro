@@ -1,4 +1,26 @@
 @CHARSET "UTF-8";
 #container {
-    width: 390px;
+    width:56%;
+}
+
+#sankasha_container{	
+	width:20%;
+	margin-left:5px;
+	margin-right:auto;
+	text-align:left;
+}
+
+#sankasha_name {
+ width:60%;
+ float:left;
+}
+
+#sankasha_alive {
+ width:39%;
+ float:left;
+}
+
+#boxD {
+ width:100%;
+ clear:both;
 }

@@ -12,10 +12,26 @@ import system.Server;
 public class Village implements Serializable {
 	public int sankasha_id=0;
 	private Sankasha GM;
-	public HashMap<Integer,Sankasha> sankasha=new HashMap<Integer,Sankasha>();
+
+	//参加者リスト
+	public HashMap<Integer,Sankasha> sankasha_map=new HashMap<Integer,Sankasha>();
+
+	//チャットログ
 	public ArrayList<String> chat=new ArrayList<String>();
+
+	//村番号
 	public int number=0;
+	
+	//現在の日数
+	private int day=1;
+	
+	//現在のフェーズ
+	private String terminal="昼";
+
+	//村名
 	public String name="";
+	
+	//各役職の最大人数
 	private int max_sankasha=0;
 	private int max_uranaishi=0;
 	private int max_reinousha=0;
@@ -25,6 +41,8 @@ public class Village implements Serializable {
 	private int max_kyojin=0;
 	private int max_jinro=0;
 	private int max_youko=0;
+
+	//各役職の現在入村済みの人数
 	private int fig_sankasha=0;
 	private int fig_uranaishi=0;
 	private int fig_reinousha=0;
@@ -61,7 +79,21 @@ public class Village implements Serializable {
 		return this.number;
 	}
 	
+	public int getDay() {
+		return day;
+	}
 
+	public void setDay(int day) {
+		this.day = day;
+	}
+
+	public String getTerminal() {
+		return terminal;
+	}
+
+	public void setTerminal(String terminal) {
+		this.terminal = terminal;
+	}
 
 	public int getSankasha_id() {
 		return sankasha_id;
@@ -72,11 +104,7 @@ public class Village implements Serializable {
 	}
 
 	public HashMap<Integer, Sankasha> getSankasha() {
-		return sankasha;
-	}
-
-	public void setSankasha(HashMap<Integer, Sankasha> sankasha) {
-		this.sankasha = sankasha;
+		return sankasha_map;
 	}
 
 	public ArrayList<String> getChat() {
@@ -243,70 +271,70 @@ public class Village implements Serializable {
 		this.number = number;
 	}
 
-	public boolean sanka(Sankasha person){
+	public boolean sanka(Sankasha sankasha){
 		if (max_sankasha>fig_sankasha){
 			fig_sankasha++;
-			person.setId(sankasha_id);
+			sankasha.setId(sankasha_id);
 			sankasha_id++;
-			System.out.println("dbg:"+person.name);
-			sankasha.put(person.getId(),person);
+			System.out.println("dbg:"+sankasha.name);
+			sankasha_map.put(sankasha.getId(),sankasha);
 		}else{
 			return false;
 		}
 		
 		
-		if((person.kibo_yaku.equals("村人") &&  max_murabito<=fig_murabito)
-				|| (person.kibo_yaku.equals("占い師") && max_uranaishi<=fig_uranaishi)
-				|| (person.kibo_yaku.equals("霊能者") && max_reinousha<=fig_reinousha)
-				|| (person.kibo_yaku.equals("人狼") && max_jinro<=fig_jinro)
-				|| (person.kibo_yaku.equals("共有者") && max_kyoyusha<=fig_kyoyusha)
-				|| (person.kibo_yaku.equals("妖狐") && max_youko<=fig_youko)
-				|| (person.kibo_yaku.equals("狩人") && max_karyudo<=fig_karyudo)
-				|| (person.kibo_yaku.equals("狂人") && max_kyojin<=fig_kyojin)
-				|| (person.kibo_yaku.equals("無し"))
+		if((sankasha.kibo_yaku.equals("村人") &&  max_murabito<=fig_murabito)
+				|| (sankasha.kibo_yaku.equals("占い師") && max_uranaishi<=fig_uranaishi)
+				|| (sankasha.kibo_yaku.equals("霊能者") && max_reinousha<=fig_reinousha)
+				|| (sankasha.kibo_yaku.equals("人狼") && max_jinro<=fig_jinro)
+				|| (sankasha.kibo_yaku.equals("共有者") && max_kyoyusha<=fig_kyoyusha)
+				|| (sankasha.kibo_yaku.equals("妖狐") && max_youko<=fig_youko)
+				|| (sankasha.kibo_yaku.equals("狩人") && max_karyudo<=fig_karyudo)
+				|| (sankasha.kibo_yaku.equals("狂人") && max_kyojin<=fig_kyojin)
+				|| (sankasha.kibo_yaku.equals("無し"))
 				){
-			person.yaku="無職";
+			sankasha.yaku="無職";
 			System.out.println("dbg:mushoku");
 		} else {
-			person.yaku=person.kibo_yaku;
-				if(person.kibo_yaku=="村人"){
+			sankasha.yaku=sankasha.kibo_yaku;
+				if(sankasha.kibo_yaku=="村人"){
 					System.out.println("dbg:村人");
 					fig_murabito++;
-				}else if (person.kibo_yaku.equals("占い師")){
+				}else if (sankasha.kibo_yaku.equals("占い師")){
 					System.out.println("dbg:占い師");
 					fig_uranaishi++;
-				}else if (person.kibo_yaku.equals("霊能者")){
+				}else if (sankasha.kibo_yaku.equals("霊能者")){
 					System.out.println("dbg:霊能者");
 					fig_reinousha++;
-				}else if (person.kibo_yaku.equals("人狼")){
+				}else if (sankasha.kibo_yaku.equals("人狼")){
 					System.out.println("dbg:人狼");
 					fig_jinro++;
-				}else if (person.kibo_yaku.equals("共有者")){
+				}else if (sankasha.kibo_yaku.equals("共有者")){
 					System.out.println("dbg:共有者");
 					fig_kyoyusha++;
-				}else if (person.kibo_yaku.equals("妖狐")){
+				}else if (sankasha.kibo_yaku.equals("妖狐")){
 					System.out.println("dbg:妖狐");
 					fig_youko++;
-				}else if (person.kibo_yaku.equals("狩人")){
+				}else if (sankasha.kibo_yaku.equals("狩人")){
 					System.out.println("dbg:狩人");
 					fig_karyudo++;
-				}else if (person.kibo_yaku.equals("狂人")){
+				}else if (sankasha.kibo_yaku.equals("狂人")){
 					System.out.println("dbg:狂人");
 					fig_kyojin++;
 				}
-			System.out.println("dbg:"+person.yaku);
+			System.out.println("dbg:"+sankasha.yaku);
 		}
 		
 		return true;
 	}
 	
 	public boolean dattai(Sankasha person){
-		boolean result = sankasha.containsKey(person);
+		boolean result = sankasha_map.containsKey(person);
 		if (result==false){
 			System.out.println("存在しない参加者です。");
 			return false;
 		}
-		Sankasha result_remove =sankasha.remove(person.getId());
+		Sankasha result_remove =sankasha_map.remove(person.getId());
 		if (result_remove==null){
 			return false;
 		}

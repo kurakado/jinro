@@ -5,7 +5,7 @@ import java.util.HashMap;
 import object.Village;
 
 public class Server {
-	static private HashMap<Integer,Village> village_list=new HashMap<Integer,Village>(1);
+	static private HashMap<Integer,Village> village_list=new HashMap<Integer,Village>(0);
 //	static private Village[] village_list;
 	static private int village_number=0;
 	

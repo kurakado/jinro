@@ -28,5 +28,7 @@
 	パスワード:<input type="password" name="pass"><br>
 	<input type="submit" value="新規登録">
 </form>
+<br>
+<input type="button" value="トップページへ" onClick="location.href='Index'">
 </body>
 </html>

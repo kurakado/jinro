@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>game 画面</title>
+<link href="top.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
 
@@ -13,17 +14,33 @@
 	int village_number=(Integer)request.getAttribute("village_number");
 	HashMap<Integer, Village> village_list=Server.get_village_list();
 	Village vill=village_list.get(village_number);
+%>
+		${vill.day}日目　${vill.terminal}<br>
+<%
 	//参加者リストの表示
 	out.println("参加者：<br>");
-	for(int i: vill.sankasha.keySet()){
-		out.println("  "+ vill.sankasha.get(i).getName()+"<br>");
+	for(int i: vill.sankasha_map.keySet()){
+%>
+		<div id="sankasha_container">
+			<div id="sankasha_name">
+<%
+		out.println("  "+ vill.sankasha_map.get(i).getName());
+%>
+			</div>
+<%
+		if(vill.sankasha_map.get(i).isAlive()){
+			out.println("<div id=\"sankasha_alive\">生存</div><br>");
+		}else{
+			out.println("<div id=\"sankasha_alive\">死亡</div><br>");
+		}
+%>
+		</div>
+<%
 	}
 %>
 <form method="post" action="GameScreen">
 <input type=text name=chat>
-<% 
-out.println("<input type=\"hidden\" name=\"village_number\" value=" + village_number + ">");
-%>
+<input type="hidden" name="village_number" value="${vill.number}">
 <input type="submit" value="更新">
 <br>
 <%

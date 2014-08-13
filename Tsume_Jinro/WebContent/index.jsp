@@ -26,15 +26,17 @@
 <br>
 <div id="container">
 	<input type="button" value="入村画面へ" onClick="location.href='Nyuson'">
-	<input type="button" value="村作成画面へ" onClick="location.href='MakeVillage'"><br><br>
+	<input type="button" value="村作成画面へ" onClick="location.href='MakeVillage'"><br>
+	<input type="button" value="ログイン画面へ" onClick="location.href='Login'"><br>
+	<br>
 </div>
 <div id="container">
-	<input type="button" value="登録" onClick="location.href='SignUp'">
-	<form method="post" action="Login">
-		<input type="submit" value="ログイン画面へ">
-	</form>
+	<input type="button" value="アカウント登録" onClick="location.href='SignUp'">
+	<input type="button" value="アカウントログイン " onClick="location.href='AccountLogin'"><br>
+	<br>
+	<input type="button" value="アカウントログアウト " onClick="location.href='AccountLogout'"><br>
 </div>
 <br>
-<input type="button" value="アカウントログイン " onClick="location.href='AccountLogin'">
+
 </body>
 </html>

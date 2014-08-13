@@ -6,19 +6,19 @@ public class Sankasha {
 	private int id;
 	private Account account;
 	public String name;
-	private String password;
 	public String kibo_yaku;
 	public String yaku;
 	public Charactor cha;
+	private boolean alive=true;
 	
-	public Sankasha(String _name,String _password){
+	public Sankasha(String _name,Account _account){
 		this.setName(_name);
-		this.setPassword(_password);
+		this.setAccount(_account);
 	}
 	
-	public Sankasha(String _name,String _password,String _kibo_yaku){
+	public Sankasha(String _name,Account _account,String _kibo_yaku){
 		this.setName(_name);
-		this.setPassword(_password);
+		this.setAccount(_account);
 		this.setKibo_yaku(_kibo_yaku);
 	}
 
@@ -34,7 +34,7 @@ public class Sankasha {
 		return account;
 	}
 
-	public void setAccount(Account account) {
+	private void setAccount(Account account) {
 		this.account = account;
 	}
 
@@ -46,13 +46,7 @@ public class Sankasha {
 		this.name = name;
 	}
 
-	public String getPassword() {
-		return password;
-	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public String getKibo_yaku() {
 		return kibo_yaku;
@@ -76,6 +70,14 @@ public class Sankasha {
 
 	public void setCha(Charactor cha) {
 		this.cha = cha;
+	}
+
+	public boolean isAlive() {
+		return alive;
+	}
+
+	public void setAlive(boolean alive) {
+		this.alive = alive;
 	}
 
 

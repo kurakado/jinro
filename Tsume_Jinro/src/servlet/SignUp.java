@@ -99,7 +99,7 @@ public class SignUp extends HttpServlet {
 		user_list_file.createNewFile();
 		
 		//ユーザリスト用のcsvファイルに追記
-		BufferedWriter bw = new BufferedWriter(new FileWriter(user_list_file));
+		BufferedWriter bw = new BufferedWriter(new FileWriter(user_list_file,true));
 		bw.write(account.getId()+","+account.getPassword());
 		bw.newLine();
 		bw.close();

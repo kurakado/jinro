@@ -2,24 +2,25 @@ package servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class SessionBreaker
+ * Servlet implementation class Index
  */
-@WebServlet("/SessionBreaker")
-public class SessionBreaker extends HttpServlet {
+@WebServlet("/Index")
+public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SessionBreaker() {
+    public Index() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,6 +30,7 @@ public class SessionBreaker extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		this.doPost(request, response);
 	}
 
 	/**
@@ -36,14 +38,15 @@ public class SessionBreaker extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		if(session != null){
-			session.invalidate();
-			System.out.println("セッションを破棄しました。");
-		}else{
-			System.out.println("セッションが無いので破棄しませんよ。");
-		}
-		return;
+		// URL設定
+		String url = "/index.jsp";
+		// フォワード
+		forward(url, request, response);
 	}
-
+	private void forward(String url, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		ServletContext context = getServletContext();
+		RequestDispatcher dispatcher = context.getRequestDispatcher(url);
+		dispatcher.forward(request, response);
+	}
 }

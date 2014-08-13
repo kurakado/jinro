@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table align="center" bgcolor="#faebd7" width="100%" style="margin-top: 60px">
+	<table align="center" bgcolor="#faebd7" width="100%" style="margin-top: 10px">
 		<tr style="height:30px">
 			<td align="center"style="font-weight: bold; font-size: 16pt; color: maroon;">
-			村作成
+			アカウントログイン
 			</td>
 		</tr>
 	</table>
@@ -28,5 +28,7 @@
 	パスワード:<input type="password" name="pass"><br>
 	<input type="submit" value="決定">
 </form>
+<br>
+<input type="button" value="トップページへ" onClick="location.href='Index'">
 </body>
 </html>

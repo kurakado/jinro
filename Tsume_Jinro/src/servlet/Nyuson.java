@@ -73,6 +73,18 @@ public class Nyuson extends HttpServlet {
 			errorMessage.append(MessageString.M01S);
 		}
 		
+		//村情報取得
+		HashMap<Integer, Village> village_list=Server.get_village_list();
+		Village vill=village_list.get(Integer.parseInt(request.getParameter("Village_number")));
+
+		//名前の"◆"はGM専用記号の為、"◇"に置き換え
+		Sankasha sankasha=new Sankasha(request.getParameter("name").replaceAll("◆", "◇"),(Account)session.getAttribute("account"),request.getParameter("kibo"));
+
+		//村に参加者を登録
+		if(!(vill.sanka(sankasha))){
+			errorMessage.append(MessageString.M02W);
+		}
+
 		//エラーがある場合には追い返す
 		if (errorMessage.length() != 0) {
 			// リクエストにエラー情報設定
@@ -83,21 +95,9 @@ public class Nyuson extends HttpServlet {
 			forward(url, request, response);
 			return;
 		}
-				
-		//村に参加者を登録
-		HashMap<Integer, Village> village_list=Server.get_village_list();
-		Village vill=village_list.get(Integer.parseInt(request.getParameter("Village_number")));
-		Sankasha sankasha=new Sankasha(request.getParameter("name"),request.getParameter("pass"),request.getParameter("kibo"));
-
 		//セッションに情報を登録
 		session.setAttribute("vill", vill);
-		session.setAttribute("sankasha", sankasha);
-		sankasha.setAccount((Account)session.getAttribute("account"));
-		Boolean result = vill.sanka(sankasha);
-		request.setAttribute("result", result);
-		request.setAttribute("vill", vill);
-		request.setAttribute("sankasha", sankasha);
-		
+		session.setAttribute("sankasha", sankasha);	
 		
 		String url="/nyusonResult.jsp";
 		forward(url,request,response);
