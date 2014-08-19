@@ -11,12 +11,16 @@
 }
 
 #sankasha_name {
- width:60%;
+ width:40%;
  float:left;
 }
 
 #sankasha_alive {
- width:39%;
+ width:29%;
+ float:left;
+}
+#sankasha_id {
+ width:29%;
  float:left;
 }
 

@@ -29,7 +29,7 @@
 入村していない村の場合、観戦を行います。<br>
 <% 
 HashMap<Integer, Village> village_list=(HashMap<Integer, Village>) request.getAttribute("village_list");
-if(village_list==null){
+if(village_list.size()==0){
 	%>
 	観戦可能な村がありません。
 	<%

@@ -117,6 +117,10 @@ public class AccountLogin extends HttpServlet {
 		//セッションに情報登録
 		Account account=new Account(id,password);
 		HttpSession session = request.getSession();
+		if(!(session.getAttributeNames()==null)){
+			session.invalidate();
+			session = request.getSession();
+		}
 		session.setAttribute("account", account);
 		
 		// URL設定

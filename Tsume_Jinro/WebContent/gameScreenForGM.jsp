@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>game 画面</title>
+<title>GM用ゲーム 画面</title>
 <link href="top.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
@@ -14,7 +14,6 @@
 	int village_number=(Integer)request.getAttribute("village_number");
 	HashMap<Integer, Village> village_list=Server.get_village_list();
 	Village vill=village_list.get(village_number);
-	pageContext.setAttribute("vill",vill);
 %>
 		${vill.name}村<br>
 		GM:${vill.GM.account.id}<br><br>
@@ -32,12 +31,16 @@
 			</div>
 <%
 		if(vill.sankasha_map.get(i).isAlive()){
-			out.println("<div id=\"sankasha_alive\">生存</div><br>");
+			out.println("<div id=\"sankasha_alive\">生存</div>");
 		}else{
-			out.println("<div id=\"sankasha_alive\">死亡</div><br>");
+			out.println("<div id=\"sankasha_alive\">死亡</div>");
 		}
+
+			out.println(
+			"<div id=\"sankasha_id\">"+vill.sankasha_map.get(i).getAccount().getId()+"</div><br>"
+			);
 %>
-		</div>
+	</div>
 <%
 	}
 %><br>
@@ -45,6 +48,27 @@
 <input type=text name=chat>
 <input type="hidden" name="village_number" value="${vill.number}">
 <input type="submit" value="更新">
+
+
+<%
+//村に参加している中から対象選択
+if(!(vill.sankasha_map.size()==0)){
+	%>
+	対象
+	<select name=target_number>
+	<%
+	for (int i: vill.sankasha_map.keySet()){
+		out.println("<option value=\""+i+"\">"+vill.sankasha_map.get(i).getAccount().getId());
+	}
+}
+//アクションを選択
+%>
+</select>
+<select name=action>
+	<option value="kick">kick
+	<option value="start">start
+	<option value="set">set
+</select><br>
 <br>
 <%
 //チャットログの表示

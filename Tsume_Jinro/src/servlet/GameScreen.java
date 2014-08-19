@@ -47,6 +47,7 @@ public class GameScreen extends HttpServlet {
 		int village_number=Integer.parseInt(request.getParameter("village_number"));
 		HashMap<Integer, Village> village_list=Server.get_village_list();
 		Village vill=village_list.get(village_number);
+		request.setAttribute("vill",vill);
 		request.setAttribute("village_number", village_number);
 		HttpSession session=request.getSession();
 		//chatがnullでも空文字でもない時
@@ -68,7 +69,21 @@ public class GameScreen extends HttpServlet {
 			vill.chat.add(0,name+"｢"+request.getParameter("chat")+"｣");
 				
 		}
+		
+		//GM専用処理を他サーブレットに実行させる。
+	    String disp = "/GameScreenForGM";
+	    RequestDispatcher dispatch = request.getRequestDispatcher(disp);
+
+	    dispatch.include(request, response);
+		
 		String url="/gameScreen.jsp";
+		//GMの場合だけ別画面に遷移
+		if( !(session.getAttribute("vill")==null) && !(session.getAttribute("sankasha")==null) ){
+			if( (session.getAttribute("vill").equals(vill)) && (session.getAttribute("sankasha").equals(vill.getGM())) ){
+				System.out.println("dbg:you are GM.");
+				url="/gameScreenForGM.jsp";
+			}
+		}
 		forward(url,request,response);
 	}
 	private void forward(String url, HttpServletRequest request,

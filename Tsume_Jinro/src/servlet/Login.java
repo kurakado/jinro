@@ -64,19 +64,21 @@ public class Login extends HttpServlet {
 			System.out.println("dbg:serch sankasha.");
 			int vill_number = Integer.parseInt(request.getParameter("vill_number"));
 			Village vill=Server.get_village_list().get(vill_number);
-			System.out.println("dbg:village name is "+vill.name);
-			System.out.println("dbg:GM hash"+vill.getGM().getAccount().hashCode());
-			System.out.println("dbg:now hash"+session.getAttribute("account").hashCode());
-			if(vill.getGM().getAccount().getId().equals(
-					((Account)session.getAttribute("account")).getId() )){
-				System.out.println("dbg:GM much.");
-				request.setAttribute("village_number", vill.number);
-				session.setAttribute("sankasha", vill.getGM());
-				session.setAttribute("vill", vill);
-				String url="/gameScreen.jsp";
-				forward(url,request,response);
-				return;
-			}
+//			System.out.println("dbg:village name is "+vill.name);
+//			System.out.println("dbg:GM hash"+vill.getGM().getAccount().hashCode());
+//			System.out.println("dbg:now hash"+session.getAttribute("account").hashCode());
+			if( !((Account)session.getAttribute("account")==null) ){
+				if(vill.getGM().getAccount().getId().equals(
+						((Account)session.getAttribute("account")).getId() )){
+					System.out.println("dbg:GM much.");
+					request.setAttribute("village_number", vill.number);
+					session.setAttribute("sankasha", vill.getGM());
+					session.setAttribute("vill", vill);
+					String url="/gameScreen.jsp";
+					forward(url,request,response);
+					return;
+				}
+			} 
 			for (int i:vill.sankasha_map.keySet()){
 				//該当の村の参加者に同じアカウント者がいたらその参加者として入村
 				if(vill.sankasha_map.get(i).getAccount().getId().equals(
